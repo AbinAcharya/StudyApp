@@ -17,89 +17,117 @@ body {
     color: var(--text-main);
     font-family: 'Plus Jakarta Sans', sans-serif;
     margin: 0;
-    padding: 2.5rem;
+    padding: 2rem;
 }
 
-.container { max-width: 1100px; margin: 0 auto; }
+.container { max-width: 1200px; margin: 0 auto; }
 
-/* The Original Vertical Card Layout */
+/* Dashboard Grids */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.chart-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+/* Card Styling */
 .card {
     background: var(--card-bg);
-    padding: 2.5rem; /* Slightly more padding for that airy feel */
+    padding: 1.5rem;
     border-radius: var(--radius);
     box-shadow: var(--shadow);
     border: 1px solid #e2e8f0;
-    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    margin-bottom: 1.5rem;
+    transition: transform 0.3s ease;
 }
 
-/* Form Styling - Vertical Stack */
-.form-group {
-    margin-bottom: 1.5rem;
+.card:hover { transform: translateY(-5px); }
+
+.stat-label { color: var(--text-muted); font-size: 0.9rem; font-weight: 700; text-transform: uppercase; }
+.stat-value { font-size: 2rem; font-weight: 800; color: var(--primary); }
+
+/* Recommendation Box */
+.rec-text { font-size: 1.1rem; font-weight: 600; line-height: 1.6; color: var(--text-main); margin-top: 10px; }
+
+/* Heatmap Container - Updated for horizontal flow */
+.heatmap-container {
     display: flex;
-    flex-direction: column; /* This keeps labels above inputs */
-    text-align: left;
+    flex-wrap: wrap; /* Allows boxes to move to the next line after 7 boxes */
+    gap: 10px;
+    padding: 15px;
+    max-width: 350px; /* Adjust this so exactly 7 boxes fit per row */
+    margin: 0 auto;
 }
 
-.form-group label {
-    margin-bottom: 0.6rem;
-    font-weight: 700;
-    color: var(--text-main);
+/* Individual Box Styling */
+.heatmap-day {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px; /* Slightly rounder look */
+    border: 2px solid; /* Defined border */
+    transition: all 0.2s ease;
 }
 
-input {
-    padding: 1rem;
-    border: 2px solid #e2e8f0;
-    border-radius: 12px;
-    width: 100%;
-    box-sizing: border-box; /* Critical for keeping inputs inside the card */
-    font-size: 1rem;
-    font-family: inherit;
-    transition: border-color 0.3s;
+/* Colors with borders matching the intent */
+.upcoming { 
+    background-color: #ffffff; 
+    border-color: #e2e8f0; 
+} 
+
+.none { 
+    background-color: #fee2e2; 
+    border-color: #f87171; 
+} 
+
+.partial { 
+    background-color: #fef08a; 
+    border-color: #facc15; 
+} 
+
+.full { 
+    background-color: #dcfce7; 
+    border-color: #4ade80; 
 }
 
-input:focus {
-    outline: none;
-    border-color: var(--primary);
-}
-
-/* Button Styling */
-.btn-save {
-    width: 100%;
-    padding: 1.2rem;
-    background-color: var(--success);
-    color: white;
-    border: none;
-    border-radius: 14px;
-    font-weight: 800;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin-top: 1rem;
-}
-
-.btn-save:hover {
+.heatmap-day:hover {
     transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2);
-    filter: brightness(1.05);
+    filter: brightness(0.95);
 }
 
-.btn-back {
-    display: inline-block;
-    padding: 1rem 2.5rem;
-    border-radius: 14px;
-    font-weight: 700;
-    text-decoration: none;
-    transition: 0.3s;
+
+/* Goal Met Animation */
+.goal-met {
+    border: 2px solid var(--success) !important;
+    background: linear-gradient(to bottom right, #ffffff, #f0fff4);
+    animation: pulse-glow 2s infinite;
 }
 
-/* Alert/Success Message */
-.alert.success {
-    background: var(--success);
-    color: white;
-    padding: 1rem;
-    border-radius: 12px;
-    text-align: center;
-    margin-bottom: 2rem;
-    font-weight: 700;
+@keyframes pulse-glow {
+    0% { box-shadow: 0 0 0 0px rgba(16, 185, 129, 0.4); }
+    70% { box-shadow: 0 0 0 12px rgba(16, 185, 129, 0); }
+    100% { box-shadow: 0 0 0 0px rgba(16, 185, 129, 0); }
 }
+
+/* Form Styling (Vertical) */
+.form-group { margin-bottom: 1.2rem; display: flex; flex-direction: column; }
+.form-group label { margin-bottom: 0.5rem; font-weight: 700; }
+input { padding: 0.8rem; border: 2px solid #e2e8f0; border-radius: 10px; font-family: inherit; }
+
+/* Buttons */
+.btn-save { background: var(--success); color: white; border: none; padding: 1rem; border-radius: 12px; font-weight: 800; cursor: pointer; width: 100%; }
+.btn-clear { background: #ef4444; color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 10px; font-weight: 700; cursor: pointer; }
+.btn-delete { background: #fee2e2; color: #ef4444; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; }
+
+/* Table */
+.table-container { background: white; border-radius: var(--radius); overflow: hidden; border: 1px solid #e2e8f0; }
+table { width: 100%; border-collapse: collapse; }
+th { background: #f8fafc; padding: 1rem; text-align: left; }
+td { padding: 1rem; border-top: 1px solid #f1f5f9; }
+
+@media (max-width: 900px) { .chart-grid { grid-template-columns: 1fr; } }

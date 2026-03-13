@@ -6,9 +6,9 @@
 </head>
 <body>
     <div class="container">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-            <h1>Study Dashboard</h1>
-            <form action="/clear" method="POST" onsubmit="return confirm('Delete everything?');">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 2rem;">
+            <h1 style="margin:0;">Study Dashboard</h1>
+            <form action="/clear" method="POST" onsubmit="return confirm('Clear all data?');">
                 <button type="submit" class="btn-clear">Clear All Logs</button>
             </form>
         </div>
@@ -22,25 +22,29 @@
                 <div class="stat-label">Efficiency</div>
                 <div class="stat-value">{{ efficiency }}%</div>
             </div>
-            <div class="card">
+            <div class="card {% if total_hours_this_week >= 20 %}goal-met{% endif %}">
                 <div class="stat-label">Weekly Goal</div>
                 <div class="stat-value">{{ total_hours_this_week }} / 20 hrs</div>
+                {% if total_hours_this_week >= 20 %}
+                    <div style="color: var(--success); font-weight: 800; font-size: 0.8rem; margin-top: 5px;">🔥 GOAL REACHED!</div>
+                {% endif %}
             </div>
         </div>
 
         <div class="card" style="margin-bottom: 2rem; background: var(--primary-light);">
-            <h3>Recommendation</h3>
+            <h3 style="margin-top:0;">Recommendation</h3>
             <p class="rec-text">{{ recommendation }}</p>
         </div>
 
-        <div class="dashboard-grid" style="grid-template-columns: 1fr 1fr;">
+        <div class="chart-grid">
             <div class="card">
-                <h3>Study Chart</h3>
-                <img src="{{ url_for('static', filename='study_graph.png') }}" style="width: 100%; border-radius: 12px;">
+                <h3 style="margin-top:0;">Study Hours per Subject</h3>
+                <img src="{{ url_for('static', filename='study_graph.png') }}" style="width: 100%; border-radius: 10px;">
             </div>
+
             <div class="card">
-                <h3>Activity Heatmap</h3>
-                <div style="overflow-x: auto;">
+                <h3 style="margin-top:0;">Activity Heatmap</h3>
+                <div class="heatmap-container">
                     {{ heatmap_html | safe }}
                 </div>
             </div>
@@ -78,7 +82,7 @@
         </div>
 
         <div style="text-align: center; margin: 3rem 0;">
-            <a href="/" class="btn-back">Back to Tracker</a>
+            <a href="/" style="text-decoration: none; color: white; background: var(--primary); padding: 1rem 3rem; border-radius: 12px; font-weight: 700;">Back to Tracker</a>
         </div>
     </div>
 </body>

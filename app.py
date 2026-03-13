@@ -46,7 +46,8 @@ def index():
 def dashboard():
     conn = sqlite3.connect("database.db")
     cursor = conn.cursor()
-    cursor.execute("SELECT id, date, subject, planned_time, actual_time, understanding FROM study_logs ORDER BY id DESC")
+    
+    cursor.execute("SELECT id, date, subject, planned_time, actual_time, understanding FROM study_logs ORDER BY id ASC")
     logs = cursor.fetchall()
 
     today = date.today()
@@ -54,14 +55,13 @@ def dashboard():
     cursor.execute("SELECT DISTINCT date FROM study_logs WHERE date >= ?", (start_week,))
     study_days = cursor.fetchall()
     days_count = len(study_days)
-    consistency = int((days_count / 7) * 100)
+    
     goal_hours, progress_hours, goal_percentage = get_weekly_goal_progress()
     conn.close()
 
     current_streak, longest_streak = get_streaks()
     efficiency = get_efficiency()
     subject, avg_understanding, recommendation = get_recommendation()
-    improvement, improvement_message = get_weekly_improvement()
     
     try:
         generate_subject_graph()
