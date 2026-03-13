@@ -9,7 +9,9 @@
     --text-main: #0f172a;
     --text-muted: #64748b;
     --radius: 20px;
-    --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
 }
 
 body {
@@ -40,17 +42,22 @@ body {
     margin-bottom: 2rem;
 }
 
-/* Card Styling */
+/* Card Styling with 3D Effect */
 .card {
     background: var(--card-bg);
     padding: 1.8rem;
     border-radius: var(--radius);
-    box-shadow: var(--shadow);
+    box-shadow: var(--shadow-md);
     border: 1px solid #e2e8f0;
-    transition: transform 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth 3D transition */
 }
 
-.card:hover { transform: translateY(-5px); }
+/* The 3D Lift Effect on Hover */
+.card:hover { 
+    transform: translateY(-8px); 
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-light);
+}
 
 .stat-label { 
     color: var(--text-muted); 
@@ -67,13 +74,13 @@ body {
     margin-top: 8px; 
 }
 
-/* Heatmap Section - Fixed Centering */
+/* Heatmap Section */
 .heatmap-container {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
     padding: 15px 0;
-    justify-content: center; /* Centered as requested */
+    justify-content: center;
 }
 
 .heatmap-day {
@@ -82,15 +89,21 @@ body {
     border-radius: 8px;
     border: 2px solid;
     transition: all 0.2s ease;
+    cursor: help;
 }
 
-/* Color Logic - Single Source of Truth */
+/* Heatmap 3D Pop */
+.heatmap-day:hover {
+    transform: scale(1.2) translateY(-2px);
+    box-shadow: var(--shadow-sm);
+    z-index: 10;
+}
+
+/* Single source of truth for colors */
 .upcoming { background-color: #ffffff; border-color: #e2e8f0; } 
 .none { background-color: #fee2e2; border-color: #f87171; } 
 .partial { background-color: #fef08a; border-color: #facc15; } 
 .full { background-color: #dcfce7; border-color: #4ade80; }
-
-.heatmap-day:hover { transform: scale(1.15); filter: brightness(0.95); }
 
 /* Goal Met Pulse */
 .goal-met {
@@ -101,7 +114,7 @@ body {
 
 @keyframes pulse-glow {
     0% { box-shadow: 0 0 0 0px rgba(16, 185, 129, 0.4); }
-    70% { box-shadow: 0 0 0 12px rgba(16, 185, 129, 0); }
+    70% { box-shadow: 0 0 0 15px rgba(16, 185, 129, 0); }
     100% { box-shadow: 0 0 0 0px rgba(16, 185, 129, 0); }
 }
 
@@ -125,10 +138,13 @@ input {
     font-family: inherit;
     font-size: 1rem;
     outline: none;
-    transition: border-color 0.2s;
+    transition: all 0.2s;
 }
 
-input:focus { border-color: var(--primary); }
+input:focus { 
+    border-color: var(--primary); 
+    box-shadow: 0 0 0 4px var(--primary-light);
+}
 
 .btn-save { 
     background: var(--success); 
@@ -138,10 +154,15 @@ input:focus { border-color: var(--primary); }
     border-radius: 15px; 
     font-weight: 800; 
     cursor: pointer;
-    transition: opacity 0.2s;
+    transition: all 0.2s;
+    box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2);
 }
 
-.btn-save:hover { opacity: 0.9; }
+.btn-save:hover { 
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(16, 185, 129, 0.3);
+    filter: brightness(1.05);
+}
 
 .btn-clear { 
     background: #ef4444; 
@@ -149,10 +170,12 @@ input:focus { border-color: var(--primary); }
     border: none; 
     padding: 0.6rem 1.2rem; 
     border-radius: 10px; 
-    font-size: 0.85rem; 
     font-weight: 700; 
-    cursor: pointer; 
+    cursor: pointer;
+    transition: transform 0.2s;
 }
+
+.btn-clear:hover { transform: scale(1.05); }
 
 .btn-delete { 
     background: #fee2e2; 
@@ -160,9 +183,12 @@ input:focus { border-color: var(--primary); }
     border: none; 
     padding: 6px 12px; 
     border-radius: 8px; 
-    cursor: pointer; 
     font-weight: 700; 
+    cursor: pointer; 
+    transition: background 0.2s;
 }
+
+.btn-delete:hover { background: #fecaca; }
 
 /* Table Design */
 .table-container { 
@@ -171,11 +197,28 @@ input:focus { border-color: var(--primary); }
     overflow: hidden; 
     border: 1px solid #e2e8f0; 
     margin-top: 1.5rem; 
-    box-shadow: var(--shadow);
+    box-shadow: var(--shadow-md);
 }
 
 table { width: 100%; border-collapse: collapse; }
-th { background: #f8fafc; padding: 1.2rem; text-align: left; color: var(--text-muted); font-weight: 700; }
+th { background: #f8fafc; padding: 1.2rem; text-align: left; color: var(--text-muted); }
 td { padding: 1.2rem; border-top: 1px solid #f1f5f9; }
 
 @media (max-width: 900px) { .chart-grid { grid-template-columns: 1fr; } }
+
+/* Table Polish - Fixed Hover Logic */
+tbody tr {
+    transition: all 0.2s ease;
+    cursor: default;
+}
+
+/* When the row is hovered, change the row's background */
+tbody tr:hover {
+    background-color: var(--primary-light);
+}
+
+/* IMPORTANT: Make sure cells don't block the row color */
+tbody tr:hover td {
+    background-color: transparent;
+    color: var(--primary); /* Optional: turns text indigo on hover for extra pop */
+}
