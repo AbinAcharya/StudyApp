@@ -1,33 +1,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Study App</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Study Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+    <div class="container">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert success">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
 
-<div class="container">
-    <h1>Study Tracker</h1>
-    <form method="POST" action="/log" class="card">
-        <h2>Add Study Session</h2>
+    <h1 style="text-align: center;">Study Tracker</h1>
+    
+    <div class="card" style="max-width: 500px; margin: 0 auto;">
+        <h3 style="margin-top: 0; margin-bottom: 1.5rem;">Add Study Session</h3>
+        <form action="/" method="POST">
+            <div class="form-group">
+                <label>Subject</label>
+                <input type="text" name="subject" placeholder="e.g. Math" required>
+            </div>
+            <div class="form-group">
+                <label>Planned Time (minutes)</label>
+                <input type="number" name="planned_time" required>
+            </div>
+            <div class="form-group">
+                <label>Actual Time (minutes)</label>
+                <input type="number" name="actual_time" required>
+            </div>
+            <div class="form-group">
+                <label>Understanding (1-5)</label>
+                <input type="number" name="understanding" min="1" max="5" required>
+            </div>
+            <button type="submit" class="btn-save">Save Session</button>
+        </form>
+    </div>
 
-        <label>Subject</label>
-        <input type="text" name="subject" placeholder="e.g. Math" required>
-
-        <label>Planned Time (minutes)</label>
-        <input type="number" name="planned" min="1" required>
-
-        <label>Actual Time (minutes)</label>
-        <input type="number" name="actual" min="1" required>
-
-        <label>Understanding (1-5)</label>
-        <input type="number" name="understanding" min="1" max="5" required>
-
-        <button type="submit">Save Session</button>
-    </form>
-
-    <a href="/dashboard" class="btn">Go to Dashboard</a>
+    <div style="text-align: center; margin-top: 2rem;">
+        <a href="/dashboard" class="btn-back" style="background: transparent; color: var(--primary) !important; border: 2px solid var(--primary);">View Dashboard</a>
+    </div>
 </div>
-
 </body>
 </html>

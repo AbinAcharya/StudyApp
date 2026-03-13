@@ -1,106 +1,105 @@
-body{
-    font-family: Arial, sans-serif;
-    background:#f4f6f8;
-    margin:0;
-    padding:0;
-    text-align:center;
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+
+:root {
+    --primary: #6366f1;
+    --primary-light: #eef2ff;
+    --success: #10b981;
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --radius: 20px;
+    --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
-.container{
-    max-width:1000px;
-    margin:20px auto;
-    padding:20px;
+body {
+    background-color: var(--bg);
+    color: var(--text-main);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    margin: 0;
+    padding: 2.5rem;
 }
 
-/* Cards */
-.card{
-    background:white;
-    padding:20px;
-    margin:15px 0;
-    border-radius:12px;
-    box-shadow:0 4px 6px rgba(0,0,0,0.1);
-    text-align:left;
-    transition: transform 0.2s;
+.container { max-width: 1100px; margin: 0 auto; }
+
+/* The Original Vertical Card Layout */
+.card {
+    background: var(--card-bg);
+    padding: 2.5rem; /* Slightly more padding for that airy feel */
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border: 1px solid #e2e8f0;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    margin-bottom: 1.5rem;
 }
 
-.card:hover{
-    transform: translateY(-5px);
+/* Form Styling - Vertical Stack */
+.form-group {
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column; /* This keeps labels above inputs */
+    text-align: left;
 }
 
-/* Top metrics side by side */
-.card-container{
-    display:flex;
-    justify-content:space-around;
-    flex-wrap:wrap;
-    gap:20px;
+.form-group label {
+    margin-bottom: 0.6rem;
+    font-weight: 700;
+    color: var(--text-main);
 }
 
-/* Heatmap */
-.heatmap{
-    display:grid;
-    grid-template-columns: repeat(7, 18px);
-    gap:4px;
-    justify-content:center;
-    margin:auto;
+input {
+    padding: 1rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    width: 100%;
+    box-sizing: border-box; /* Critical for keeping inputs inside the card */
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.3s;
 }
 
-.heatmap span{
-    width:15px;
-    height:15px;
-    display:inline-block;
+input:focus {
+    outline: none;
+    border-color: var(--primary);
 }
 
-.box0{ background:#eee; }
-.box1{ background:#9be9a8; }
-.box2{ background:#40c463; }
-.box3{ background:#216e39; }
-
-/* Table */
-table{
-    width:100%;
-    border-collapse:collapse;
+/* Button Styling */
+.btn-save {
+    width: 100%;
+    padding: 1.2rem;
+    background-color: var(--success);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    font-weight: 800;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
 }
 
-th, td{
-    padding:10px;
-    border:1px solid #ddd;
+.btn-save:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2);
+    filter: brightness(1.05);
 }
 
-th{
-    background:#4CAF50;
-    color:white;
+.btn-back {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    border-radius: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: 0.3s;
 }
 
-/* Buttons */
-button{
-    padding:8px 15px;
-    background:#4CAF50;
-    color:white;
-    border:none;
-    border-radius:5px;
-    cursor:pointer;
-}
-
-button:hover{
-    background:#45a049;
-}
-
-.clear-btn{
-    background:#e74c3c;
-    margin-top:10px;
-}
-
-/* Form Inputs */
-input, select{
-    width:100%;
-    padding:8px;
-    margin:5px 0 15px 0;
-    box-sizing:border-box;
-}
-
-/* Links */
-a.btn{
-    display:inline-block;
-    margin-top:15px;
-    text-decoration:none;
+/* Alert/Success Message */
+.alert.success {
+    background: var(--success);
+    color: white;
+    padding: 1rem;
+    border-radius: 12px;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-weight: 700;
 }
