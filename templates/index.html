@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Study App</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <h1>Study Tracker</h1>
+    <form method="POST" action="/log" class="card">
+        <h2>Add Study Session</h2>
+
+        <label>Subject</label>
+        <input type="text" name="subject" placeholder="e.g. Math" required>
+
+        <label>Planned Time (minutes)</label>
+        <input type="number" name="planned" min="1" required>
+
+        <label>Actual Time (minutes)</label>
+        <input type="number" name="actual" min="1" required>
+
+        <label>Understanding (1-5)</label>
+        <input type="number" name="understanding" min="1" max="5" required>
+
+        <button type="submit">Save Session</button>
+    </form>
+
+    <a href="/dashboard" class="btn">Go to Dashboard</a>
+</div>
+
+</body>
+</html>

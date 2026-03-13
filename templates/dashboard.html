@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dashboard</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <h1>Study Dashboard</h1>
+
+    <!-- Top Metrics -->
+    <div class="card-container">
+        <div class="card">
+            <h3>Consistency</h3>
+            <p>You studied {{ days_count }} day{% if days_count != 1 %}s{% endif %} this week ({{ consistency }}%)</p>
+        </div>
+
+        <div class="card">
+            <h3>Weekly Improvement</h3>
+            <p>{{ improvement }}%</p>
+            <small>{{ improvement_message }}</small>
+        </div>
+
+        <div class="card">
+            <h3>Streak</h3>
+            <p>Current: {{ metrics.current_streak }} days</p>
+            <p>Longest: {{ metrics.longest_streak }} days</p>
+        </div>
+
+        <div class="card">
+            <h3>Efficiency</h3>
+            <p>{{ metrics.efficiency }}%</p>
+        </div>
+
+        <div class="card">
+            <h3>Weekly Goal</h3>
+            <p>{{ progress_hours }} / {{ goal_hours }} hours completed</p>
+            <p>{{ goal_percentage }}% of goal</p>
+        </div>
+    </div>
+
+    <!-- Recommendation -->
+    <div class="card">
+        <h3>Recommendation</h3>
+        {% if subject %}
+        <p><b>Weakest subject:</b> {{ subject }}</p>
+        <p><b>Average understanding:</b> {{ avg_understanding }}</p>
+        <p>{{ recommendation }}</p>
+        {% else %}
+        <p>No recommendation yet.</p>
+        {% endif %}
+    </div>
+
+    <!-- Charts -->
+    <div class="card">
+        <h3>Study Hours Chart</h3>
+        <img src="/static/study_graph.png" width="500">
+    </div>
+
+    <!-- Heatmap -->
+    <div class="card">
+        <h3>Study Activity (Last 30 Days)</h3>
+        <div class="heatmap">
+        {% for day in range(30) %}
+            {% set hours = heatmap.get(day, 0) %}
+            <span class="
+                {% if hours == 0 %}box0
+                {% elif hours < 2 %}box1
+                {% elif hours < 4 %}box2
+                {% else %}box3
+                {% endif %}"></span>
+        {% endfor %}
+        </div>
+    </div>
+
+    <!-- Logs Table -->
+    <div class="card">
+        <h3>Study Logs</h3>
+        <table>
+            <tr>
+                <th>Date</th>
+                <th>Subject</th>
+                <th>Planned</th>
+                <th>Actual</th>
+                <th>Understanding</th>
+                <th>Delete</th>
+            </tr>
+            {% for log in logs %}
+            <tr>
+                <td>{{ log[1] }}</td>
+                <td>{{ log[2] }}</td>
+                <td>{{ log[3] }}</td>
+                <td>{{ log[4] }}</td>
+                <td>{{ log[5] }}</td>
+                <td><a href="/delete/{{ log[0] }}"><button>Delete</button></a></td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <a href="/clear"><button class="clear-btn">Clear All Logs</button></a>
+    </div>
+
+    <a href="/"><button class="btn">Back</button></a>
+</div>
+
+</body>
+</html>

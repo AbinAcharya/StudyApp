@@ -1,0 +1,106 @@
+body{
+    font-family: Arial, sans-serif;
+    background:#f4f6f8;
+    margin:0;
+    padding:0;
+    text-align:center;
+}
+
+.container{
+    max-width:1000px;
+    margin:20px auto;
+    padding:20px;
+}
+
+/* Cards */
+.card{
+    background:white;
+    padding:20px;
+    margin:15px 0;
+    border-radius:12px;
+    box-shadow:0 4px 6px rgba(0,0,0,0.1);
+    text-align:left;
+    transition: transform 0.2s;
+}
+
+.card:hover{
+    transform: translateY(-5px);
+}
+
+/* Top metrics side by side */
+.card-container{
+    display:flex;
+    justify-content:space-around;
+    flex-wrap:wrap;
+    gap:20px;
+}
+
+/* Heatmap */
+.heatmap{
+    display:grid;
+    grid-template-columns: repeat(7, 18px);
+    gap:4px;
+    justify-content:center;
+    margin:auto;
+}
+
+.heatmap span{
+    width:15px;
+    height:15px;
+    display:inline-block;
+}
+
+.box0{ background:#eee; }
+.box1{ background:#9be9a8; }
+.box2{ background:#40c463; }
+.box3{ background:#216e39; }
+
+/* Table */
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th, td{
+    padding:10px;
+    border:1px solid #ddd;
+}
+
+th{
+    background:#4CAF50;
+    color:white;
+}
+
+/* Buttons */
+button{
+    padding:8px 15px;
+    background:#4CAF50;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#45a049;
+}
+
+.clear-btn{
+    background:#e74c3c;
+    margin-top:10px;
+}
+
+/* Form Inputs */
+input, select{
+    width:100%;
+    padding:8px;
+    margin:5px 0 15px 0;
+    box-sizing:border-box;
+}
+
+/* Links */
+a.btn{
+    display:inline-block;
+    margin-top:15px;
+    text-decoration:none;
+}
