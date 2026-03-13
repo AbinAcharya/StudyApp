@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Arimo:wght@700&family=Inter:wght@400;600;700;800&display=swap');
 
 :root {
     --primary: #6366f1;
@@ -15,14 +15,17 @@
 body {
     background-color: var(--bg);
     color: var(--text-main);
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: 'Inter', sans-serif;
     margin: 0;
-    padding: 2rem;
+    padding: 0;
 }
 
-.container { max-width: 1200px; margin: 0 auto; }
+.container { 
+    max-width: 1100px; 
+    margin: 0 auto; 
+}
 
-/* Dashboard Grids */
+/* Dashboard Grid Layouts */
 .dashboard-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -32,7 +35,7 @@ body {
 
 .chart-grid {
     display: grid;
-    grid-template-columns: 1.5fr 1fr;
+    grid-template-columns: 1.4fr 1fr;
     gap: 1.5rem;
     margin-bottom: 2rem;
 }
@@ -40,7 +43,7 @@ body {
 /* Card Styling */
 .card {
     background: var(--card-bg);
-    padding: 1.5rem;
+    padding: 1.8rem;
     border-radius: var(--radius);
     box-shadow: var(--shadow);
     border: 1px solid #e2e8f0;
@@ -49,61 +52,49 @@ body {
 
 .card:hover { transform: translateY(-5px); }
 
-.stat-label { color: var(--text-muted); font-size: 0.9rem; font-weight: 700; text-transform: uppercase; }
-.stat-value { font-size: 2rem; font-weight: 800; color: var(--primary); }
-
-/* Recommendation Box */
-.rec-text { font-size: 1.1rem; font-weight: 600; line-height: 1.6; color: var(--text-main); margin-top: 10px; }
-
-/* Heatmap Container - Updated for horizontal flow */
-.heatmap-container {
-    display: flex;
-    flex-wrap: wrap; /* Allows boxes to move to the next line after 7 boxes */
-    gap: 10px;
-    padding: 15px;
-    max-width: 350px; /* Adjust this so exactly 7 boxes fit per row */
-    margin: 0 auto;
+.stat-label { 
+    color: var(--text-muted); 
+    font-size: 0.9rem; 
+    font-weight: 700; 
+    text-transform: uppercase; 
+    letter-spacing: 0.8px; 
 }
 
-/* Individual Box Styling */
+.stat-value { 
+    font-size: 2.2rem; 
+    font-weight: 800; 
+    color: var(--primary); 
+    margin-top: 8px; 
+}
+
+/* Heatmap Section - Fixed Centering */
+.heatmap-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 15px 0;
+    justify-content: center; /* Centered as requested */
+}
+
 .heatmap-day {
-    width: 30px;
-    height: 30px;
-    border-radius: 8px; /* Slightly rounder look */
-    border: 2px solid; /* Defined border */
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    border: 2px solid;
     transition: all 0.2s ease;
 }
 
-/* Colors with borders matching the intent */
-.upcoming { 
-    background-color: #ffffff; 
-    border-color: #e2e8f0; 
-} 
+/* Color Logic - Single Source of Truth */
+.upcoming { background-color: #ffffff; border-color: #e2e8f0; } 
+.none { background-color: #fee2e2; border-color: #f87171; } 
+.partial { background-color: #fef08a; border-color: #facc15; } 
+.full { background-color: #dcfce7; border-color: #4ade80; }
 
-.none { 
-    background-color: #fee2e2; 
-    border-color: #f87171; 
-} 
+.heatmap-day:hover { transform: scale(1.15); filter: brightness(0.95); }
 
-.partial { 
-    background-color: #fef08a; 
-    border-color: #facc15; 
-} 
-
-.full { 
-    background-color: #dcfce7; 
-    border-color: #4ade80; 
-}
-
-.heatmap-day:hover {
-    transform: translateY(-3px);
-    filter: brightness(0.95);
-}
-
-
-/* Goal Met Animation */
+/* Goal Met Pulse */
 .goal-met {
-    border: 2px solid var(--success) !important;
+    border: 2.5px solid var(--success) !important;
     background: linear-gradient(to bottom right, #ffffff, #f0fff4);
     animation: pulse-glow 2s infinite;
 }
@@ -114,20 +105,77 @@ body {
     100% { box-shadow: 0 0 0 0px rgba(16, 185, 129, 0); }
 }
 
-/* Form Styling (Vertical) */
-.form-group { margin-bottom: 1.2rem; display: flex; flex-direction: column; }
-.form-group label { margin-bottom: 0.5rem; font-weight: 700; }
-input { padding: 0.8rem; border: 2px solid #e2e8f0; border-radius: 10px; font-family: inherit; }
+/* Forms & Inputs */
+.form-group { 
+    margin-bottom: 1.5rem; 
+    display: flex; 
+    flex-direction: column; 
+}
 
-/* Buttons */
-.btn-save { background: var(--success); color: white; border: none; padding: 1rem; border-radius: 12px; font-weight: 800; cursor: pointer; width: 100%; }
-.btn-clear { background: #ef4444; color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 10px; font-weight: 700; cursor: pointer; }
-.btn-delete { background: #fee2e2; color: #ef4444; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; }
+.form-group label { 
+    margin-bottom: 0.6rem; 
+    font-weight: 700; 
+    color: var(--text-main);
+}
 
-/* Table */
-.table-container { background: white; border-radius: var(--radius); overflow: hidden; border: 1px solid #e2e8f0; }
+input { 
+    padding: 1rem; 
+    border: 2px solid #e2e8f0; 
+    border-radius: 12px; 
+    font-family: inherit;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+input:focus { border-color: var(--primary); }
+
+.btn-save { 
+    background: var(--success); 
+    color: white; 
+    border: none; 
+    padding: 1.2rem; 
+    border-radius: 15px; 
+    font-weight: 800; 
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.btn-save:hover { opacity: 0.9; }
+
+.btn-clear { 
+    background: #ef4444; 
+    color: white; 
+    border: none; 
+    padding: 0.6rem 1.2rem; 
+    border-radius: 10px; 
+    font-size: 0.85rem; 
+    font-weight: 700; 
+    cursor: pointer; 
+}
+
+.btn-delete { 
+    background: #fee2e2; 
+    color: #ef4444; 
+    border: none; 
+    padding: 6px 12px; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    font-weight: 700; 
+}
+
+/* Table Design */
+.table-container { 
+    background: white; 
+    border-radius: var(--radius); 
+    overflow: hidden; 
+    border: 1px solid #e2e8f0; 
+    margin-top: 1.5rem; 
+    box-shadow: var(--shadow);
+}
+
 table { width: 100%; border-collapse: collapse; }
-th { background: #f8fafc; padding: 1rem; text-align: left; }
-td { padding: 1rem; border-top: 1px solid #f1f5f9; }
+th { background: #f8fafc; padding: 1.2rem; text-align: left; color: var(--text-muted); font-weight: 700; }
+td { padding: 1.2rem; border-top: 1px solid #f1f5f9; }
 
 @media (max-width: 900px) { .chart-grid { grid-template-columns: 1fr; } }

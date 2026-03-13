@@ -6,7 +6,7 @@ def get_heatmap_data():
     cursor = conn.cursor()
     
     today = date.today()
-    # We still look at the last 31 days
+    # Looking back 30 days plus today = 31 days
     start_date = today - timedelta(days=30)
     
     cursor.execute("""
@@ -21,13 +21,13 @@ def get_heatmap_data():
 
     heatmap_html = ""
     
-    # CHANGED: We start from 0 and subtract from 'today' to go backwards in time
+    # Loop 31 times to show today first (i=0) then go backwards
     for i in range(31):
-        current_date = today - timedelta(days=i) # Now it starts with Today
+        current_date = today - timedelta(days=i)
         date_str = current_date.strftime("%Y-%m-%d")
         minutes = data.get(date_str, 0)
         
-        # Logic for colors remains the same
+        # Determine Color Logic
         if current_date > today:
             level = "upcoming"
         elif minutes == 0:
