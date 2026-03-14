@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Study Tracker</title>
+    <title>Index - A X I S</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@700&family=Inter:wght@700&display=swap" rel="stylesheet">
-    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><style>@keyframes scanLine { 0%, 100% { transform: translateY(0px); opacity: 0.2; } 50% { transform: translateY(60px); opacity: 1; } }</style><text x=%2250%%22 y=%2255%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2285%22 font-family=%22sans-serif%22 font-weight=%22900%22 fill=%22%236366f1%22 opacity=%220.2%22>A</text><g><text x=%2250%%22 y=%2255%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2285%22 font-family=%22sans-serif%22 font-weight=%22900%22 fill=%22%236366f1%22>A</text><rect x=%2215%22 y=%2220%22 width=%2270%22 height=%228%22 rx=%224%22 fill=%22%236366f1%22 style=%22animation: scanLine 2s ease-in-out infinite;%22/></g></svg>">
+
     <script>
     // Run this immediately to prevent white flashes
     if (localStorage.getItem('theme') === 'dark') {
@@ -27,10 +28,10 @@
             
             <nav style="display: flex; gap: 2.5rem; margin-top: 0.5rem; align-items: center;">
                 <a href="/" style="text-decoration: none; font-weight: 700; color: var(--primary); font-size: 1.1rem;">
-                    Tracker
+                    INDEX
                 </a>
                 <a href="/dashboard" style="text-decoration: none; font-weight: 700; color: var(--text-muted); font-size: 1.1rem;">
-                    Dashboard
+                    DASHBOARD
                 </a>
                 <a href="/settings" class="settings-link" title="Settings" style="text-decoration: none;">
                     <i class="fa-solid fa-gear"></i>
