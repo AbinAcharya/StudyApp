@@ -81,6 +81,16 @@
                 </div>
             </div>
         </div>
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; margin-top: 2rem;">
+            <h2 style="margin: 0;">Study Logs</h2>
+
+            <form action="/clear" method="POST" onsubmit="return confirm('Are you sure you want to delete ALL study logs? This cannot be undone.');">
+                <button type="submit" style="background: #ef4444; color: white; border: none; padding: 0.6rem 1.2rem; border-radius: 8px; font-weight: 700; cursor: pointer; transition: opacity 0.2s;">
+                    <i class="fa-solid fa-trash-can" style="margin-right: 8px;"></i> Delete All Logs
+                </button>
+            </form>
+        </div>
 
         <div class="table-container">
             <table>

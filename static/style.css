@@ -211,37 +211,52 @@ input:focus {
 
 .btn-delete:hover { background: #fecaca; }
 
+/* --- Comprehensive Table Styling --- */
+
 .table-container { 
-    background: var(--card-bg); /* Becomes #0a0a0a in dark mode */
-    border-radius: var(--radius); 
+    background: var(--card-bg); 
+    border-radius: 12px; 
     overflow: hidden; 
     border: 1px solid var(--border-color); 
     margin-top: 1.5rem; 
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-sm);
 }
 
-table { width: 100%; border-collapse: collapse; }
+table { 
+    width: 100%; 
+    border-collapse: collapse; 
+}
 
 th { 
-    background: var(--bg); /* Becomes pure black in dark mode */
+    background: var(--bg); 
     padding: 1.2rem; 
     text-align: left; 
     color: var(--text-muted); 
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 2px solid var(--border-color);
 }
 
 td { 
     padding: 1.2rem; 
     border-top: 1px solid var(--border-color); 
-    color: var(--text-main); /* Becomes light gray in dark mode */
+    color: var(--text-main); 
+    font-size: 1rem;
 }
 
-/* Hover effect fix */
+/* Row Hover Logic */
+tbody tr {
+    transition: background-color 0.2s ease;
+}
+
 tbody tr:hover {
-    background-color: var(--primary-light); /* Subtle indigo highlight */
+    background-color: var(--primary-light);
 }
 
 tbody tr:hover td {
-    color: var(--primary); /* Text turns blue on hover */
+    color: var(--primary);
 }
 
 /* --- Navigation Styling --- */
@@ -345,4 +360,14 @@ input:checked + .slider:before {
 /* Highlight the icon if we are on the settings page */
 .settings-link[href="/settings"] i {
     color: var(--primary);
+}
+
+/* Force headers to be visible in all modes */
+.card h2, .card h1, .card h4 {
+    color: var(--text-main) !important;
+}
+
+/* Specifically for the Tracker title on the index page */
+.container h2 {
+    color: var(--text-main);
 }
