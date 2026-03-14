@@ -55,7 +55,9 @@ def index():
 
 @app.route("/dashboard")
 def dashboard():
-    theme, _ = get_user_settings()
+    # 1. Capture BOTH theme and the goal from your settings table
+    theme, weekly_goal = get_user_settings() 
+    
     conn = sqlite3.connect("database.db")
     cursor = conn.cursor()
     cursor.execute("SELECT id, date, subject, planned_time, actual_time, understanding FROM study_logs ORDER BY id ASC")
@@ -64,19 +66,24 @@ def dashboard():
 
     current_streak, _ = get_streaks()
     efficiency = get_efficiency()
+    
+    # 2. Get your progress hours
     _, progress_hours, _ = get_weekly_goal_progress()
     _, _, recommendation = get_recommendation()
     
+    # 3. Regenerate graph with the correct theme
     if logs:
         generate_subject_graph(theme=theme)
     
-    heatmap_html = get_heatmap_data()
+    # 4. Pass the theme to the heatmap so its labels also switch!
+    heatmap_html = get_heatmap_data() 
 
     return render_template(
         "dashboard.html",
         logs=logs,
         streak=current_streak,
         efficiency=efficiency,
+        weekly_goal=weekly_goal, # <--- PASS THIS TO THE HTML
         total_hours_this_week=progress_hours,
         recommendation=recommendation,
         heatmap_html=heatmap_html,
