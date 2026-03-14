@@ -68,7 +68,7 @@ def dashboard():
     _, _, recommendation = get_recommendation()
     
     if logs:
-        generate_subject_graph()
+        generate_subject_graph(theme=theme)
     
     heatmap_html = get_heatmap_data()
 
@@ -121,9 +121,11 @@ def settings():
     cursor = conn.cursor()
 
     if request.method == "POST":
-        theme = request.form.get("theme")
-        credits = int(request.form.get("credits"))
-        intensity = request.form.get("intensity")
+        # Check if the hidden input (or toggle) sent 'dark'
+        # If the form uses the hidden input trick we discussed, this stays 'dark'
+        theme = request.form.get("theme", "light") 
+        credits = int(request.form.get("credits", 0))
+        intensity = request.form.get("intensity", "Standard")
         
         # Advisor logic
         suggested_goal, _ = calculate_recommendation(credits, intensity)
@@ -132,12 +134,20 @@ def settings():
             UPDATE settings SET theme=?, credits=?, intensity=?, weekly_goal=? WHERE id=1
         """, (theme, credits, intensity, suggested_goal))
         conn.commit()
+        
+        # This is key: regenerate the graph immediately so it matches the new theme
+        generate_subject_graph(theme=theme)
+        
         flash("Settings Updated!")
         return redirect(url_for('settings'))
 
     cursor.execute("SELECT theme, credits, intensity, weekly_goal FROM settings WHERE id=1")
     user_settings = cursor.fetchone()
     conn.close()
+    
+    # Handle case where database might be empty initially
+    if not user_settings:
+        user_settings = ('light', 0, 'Standard', 20)
     
     _, bracket = calculate_recommendation(user_settings[1], user_settings[2])
 

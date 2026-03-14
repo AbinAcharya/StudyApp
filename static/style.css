@@ -12,7 +12,22 @@
     --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
+    --border-color: #e2ef80;
 }
+
+[data-theme='oled'] {
+    --bg: #000000;              /* Absolute black for OLED */
+    --card-bg: #0a0a0a;         /* Very dark gray to differentiate cards */
+    --text-main: #f1f5f9;       /* Light gray text (easier on eyes than pure white) */
+    --text-muted: #cbd5e1;      /* Muted text for secondary info */
+    --primary-light: #1e1b4b;
+    --border-color: #1e293b;   /* Darker version of your primary blue */
+    
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.5), 0 0 0 1px #1e293b;
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.7), 0 0 0 1px #1e293b;
+    --shadow-lg: 0 12px 24px rgba(99, 102, 241, 0.15), 0 0 0 1px #334155;
+}
+
 
 body {
     background-color: var(--bg);
@@ -20,6 +35,12 @@ body {
     font-family: 'Inter', sans-serif;
     margin: 0;
     padding: 0;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1, h2, h3, h4 {
+    color: var(--text-main);
+    transition: color 0.3s ease;
 }
 
 .container { 
@@ -48,15 +69,15 @@ body {
     padding: 1.8rem;
     border-radius: var(--radius);
     box-shadow: var(--shadow-md);
-    border: 1px solid #e2e8f0;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth 3D transition */
+    border: 1px solid var(--border-color); /* Updated to use variable */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* The 3D Lift Effect on Hover */
 .card:hover { 
     transform: translateY(-8px); 
     box-shadow: var(--shadow-lg);
-    border-color: var(--primary-light);
+    border-color: var(--primary);
 }
 
 .stat-label { 
@@ -190,35 +211,138 @@ input:focus {
 
 .btn-delete:hover { background: #fecaca; }
 
-/* Table Design */
 .table-container { 
-    background: white; 
+    background: var(--card-bg); /* Becomes #0a0a0a in dark mode */
     border-radius: var(--radius); 
     overflow: hidden; 
-    border: 1px solid #e2e8f0; 
+    border: 1px solid var(--border-color); 
     margin-top: 1.5rem; 
     box-shadow: var(--shadow-md);
 }
 
 table { width: 100%; border-collapse: collapse; }
-th { background: #f8fafc; padding: 1.2rem; text-align: left; color: var(--text-muted); }
-td { padding: 1.2rem; border-top: 1px solid #f1f5f9; }
 
-@media (max-width: 900px) { .chart-grid { grid-template-columns: 1fr; } }
-
-/* Table Polish - Fixed Hover Logic */
-tbody tr {
-    transition: all 0.2s ease;
-    cursor: default;
+th { 
+    background: var(--bg); /* Becomes pure black in dark mode */
+    padding: 1.2rem; 
+    text-align: left; 
+    color: var(--text-muted); 
 }
 
-/* When the row is hovered, change the row's background */
+td { 
+    padding: 1.2rem; 
+    border-top: 1px solid var(--border-color); 
+    color: var(--text-main); /* Becomes light gray in dark mode */
+}
+
+/* Hover effect fix */
 tbody tr:hover {
-    background-color: var(--primary-light);
+    background-color: var(--primary-light); /* Subtle indigo highlight */
 }
 
-/* IMPORTANT: Make sure cells don't block the row color */
 tbody tr:hover td {
-    background-color: transparent;
-    color: var(--primary); /* Optional: turns text indigo on hover for extra pop */
+    color: var(--primary); /* Text turns blue on hover */
+}
+
+/* --- Navigation Styling --- */
+.nav-link {
+    text-decoration: none;
+    font-weight: 700;
+    color: var(--text-muted);
+    transition: all 0.3s ease;
+    padding: 5px 0;
+    position: relative;
+}
+
+.nav-link:hover {
+    color: var(--primary);
+    transform: translateY(-2px);
+}
+
+/* This styles the active link on the page you are currently on */
+.nav-link.active, .nav-link[style*="var(--primary)"] {
+    color: var(--primary) !important;
+}
+
+/* OLED Glow Effect for Links */
+[data-theme='oled'] .nav-link:hover {
+    text-shadow: 0 0 8px rgba(99, 102, 241, 0.5);
+}
+
+
+/* --- Modern OLED Toggle Switch --- */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 54px;
+    height: 28px;
+}
+
+.switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--text-muted);
+    opacity: 0.3;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+input:checked + .slider {
+    background-color: var(--primary);
+    opacity: 1;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+/* Settings Icon Styling */
+.settings-link {
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    transition: color 0.3s ease;
+}
+
+/* The Gear Rotation Animation */
+.settings-link i {
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.settings-link:hover i {
+    transform: rotate(180deg); /* Spins the gear 90 degrees */
+    color: var(--primary);
+}
+
+/* OLED Glow for the Icon */
+[data-theme='oled'] .settings-link:hover i {
+    filter: drop-shadow(0 0 8px rgba(99, 102, 241, 0.6));
+}
+
+/* Highlight the icon if we are on the settings page */
+.settings-link[href="/settings"] i {
+    color: var(--primary);
 }

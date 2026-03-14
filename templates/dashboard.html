@@ -5,7 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Study Dashboard</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@700&display=swap" rel="stylesheet">
+
+    <script>
+    // Run this immediately to prevent white flashes
+    if (localStorage.getItem('theme') === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'oled');
+    }
+</script>
+
 </head>
 <body style="padding: 2.5rem;">
     <div class="container">
@@ -16,11 +25,15 @@
             </h1>
             
             <nav style="display: flex; gap: 2.5rem; margin-top: 0.5rem; align-items: center;">
-                <a href="/" style="text-decoration: none; font-weight: 700; color: var(--text-muted); font-size: 1.1rem;">Tracker</a>
-                <a href="/dashboard" style="text-decoration: none; font-weight: 700; color: var(--primary); font-size: 1.1rem;">Dashboard</a>
-                <form action="/clear" method="POST" onsubmit="return confirm('Delete all history?');" style="margin-left: 1rem;">
-                    <button type="submit" class="btn-clear">Clear Data</button>
-                </form>
+                <a href="/" style="text-decoration: none; font-weight: 700; color: var(--primary); font-size: 1.1rem;">
+                    Tracker
+                </a>
+                <a href="/dashboard" style="text-decoration: none; font-weight: 700; color: var(--text-muted); font-size: 1.1rem;">
+                    Dashboard
+                </a>
+                <a href="/settings" class="settings-link" title="Settings" style="text-decoration: none;">
+                    <i class="fa-solid fa-gear"></i>
+                </a>
             </nav>
         </div>
 
